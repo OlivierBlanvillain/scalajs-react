@@ -95,22 +95,22 @@ package object react {
     }
 
     final class ReqProps[P, S, +B, +N <: TopNode](val jsCtor: ReactComponentCU[P,S,B,N], key: Option[JAny]) extends ReactComponentC[P,S,B,N] {
-      def apply(props: P, children: VDom*) = jsCtor(mkProps(props, key), children: _*)
+      def apply(props: P, children: ReactNode*) = jsCtor(mkProps(props, key), children: _*)
       def withKey(key: JAny) = new ReqProps(jsCtor, Some(key))
     }
 
     final class DefaultProps[P, S, +B, +N <: TopNode](val jsCtor: ReactComponentCU[P,S,B,N], key: Option[JAny], default: () => P) extends ReactComponentC[P,S,B,N] {
-      def apply(props: Option[P], children: VDom*): ReactComponentU[P,S,B,N] =
+      def apply(props: Option[P], children: ReactNode*): ReactComponentU[P,S,B,N] =
         jsCtor(mkProps(props getOrElse default(), key), children: _*)
 
-      def apply(children: VDom*): ReactComponentU[P,S,B,N] =
+      def apply(children: ReactNode*): ReactComponentU[P,S,B,N] =
         apply(None, children: _*)
 
       def withKey(key: JAny) = new DefaultProps(jsCtor, Some(key), default)
     }
 
     final class ConstProps[P, S, +B, +N <: TopNode](val jsCtor: ReactComponentCU[P,S,B,N], key: Option[JAny], props: () => P) extends ReactComponentC[P,S,B,N] {
-      def apply(children: VDom*) = jsCtor(mkProps(props(), key), children: _*)
+      def apply(children: ReactNode*) = jsCtor(mkProps(props(), key), children: _*)
       def withKey(key: JAny) = new ConstProps(jsCtor, Some(key), props)
     }
   }
@@ -156,13 +156,13 @@ package object react {
   }
 
   implicit final class PropsChildrenExt(val u: PropsChildren) extends AnyVal {
-    @inline def forEach[U](f: VDom => U): Unit =
-      React.Children.forEach(u, (f:JFn).asInstanceOf[js.Function1[VDom, JAny]])
+    @inline def forEach[U](f: ReactNode => U): Unit =
+      React.Children.forEach(u, (f:JFn).asInstanceOf[js.Function1[ReactNode, JAny]])
 
-    @inline def forEach[U](f: (VDom, Int) => U): Unit =
-      React.Children.forEach(u, (f:JFn).asInstanceOf[js.Function2[VDom, Number, JAny]])
+    @inline def forEach[U](f: (ReactNode, Int) => U): Unit =
+      React.Children.forEach(u, (f:JFn).asInstanceOf[js.Function2[ReactNode, Number, JAny]])
 
-    @inline def only: Option[VDom] =
+    @inline def only: Option[ReactNode] =
       try { Some(React.Children.only(u))} catch { case t: Throwable => None}
   }
 

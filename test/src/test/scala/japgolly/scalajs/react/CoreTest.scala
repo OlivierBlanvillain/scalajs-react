@@ -22,7 +22,7 @@ object CoreTest extends TestSuite {
   val tests = TestSuite {
 
     'scalatags {
-      def test(subj: VDom, exp: String): Unit =
+      def test(subj: ReactElement, exp: String): Unit =
         ReactComponentB[Unit]("tmp").render((_,_) => subj).buildU.apply() shouldRender exp
 
       def eh: SyntheticDragEvent[dom.Node] => Unit = ???
@@ -50,7 +50,7 @@ object CoreTest extends TestSuite {
       }
 
       'vdom {
-        val v: VDom = H1("cool")
+        val v: ReactElement = H1("cool")
         val X = ReactComponentB[Unit]("X").render(_ => div(v)).buildU
         X() shouldRender "<div><h1>cool</h1></div>"
       }
@@ -138,8 +138,8 @@ object CoreTest extends TestSuite {
       }
 
       'forEach {
-        val C1 = collectorNC[VDom]((l, c) => c.forEach(l append _))
-        val C2 = collectorNC[(VDom, Int)]((l, c) => c.forEach((a, b) => l.append((a, b))))
+        val C1 = collectorNC[ReactNode]((l, c) => c.forEach(l append _))
+        val C2 = collectorNC[(ReactNode, Int)]((l, c) => c.forEach((a, b) => l.append((a, b))))
 
         'withoutIndex {
           val x = runNC(C1, h1("yay"), h3("good"))
@@ -154,7 +154,7 @@ object CoreTest extends TestSuite {
       }
 
       'only {
-        val A = collector1C[Option[VDom]](_.only)
+        val A = collector1C[Option[ReactNode]](_.only)
 
         'one {
           val r = run1C(A, div("Voyager (AU) is an awesome band"))

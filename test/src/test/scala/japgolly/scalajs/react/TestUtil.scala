@@ -31,7 +31,7 @@ object TestUtil {
     a.get().get
   }
 
-  def run1C[A](c: ReactComponentC.ReqProps[AtomicReference[Option[A]], _, _, _], children: VDom*): A =
+  def run1C[A](c: ReactComponentC.ReqProps[AtomicReference[Option[A]], _, _, _], children: ReactNode*): A =
     run1(c)(a => c(a, children: _*))
 
   def collectorN[A](f: (ListBuffer[A], ComponentScopeU[_, _, _]) => Unit) =
@@ -48,7 +48,7 @@ object TestUtil {
     l.result()
   }
 
-  def runNC[A](c: ReactComponentC.ReqProps[ListBuffer[A], _, _, _], children: VDom*) =
+  def runNC[A](c: ReactComponentC.ReqProps[ListBuffer[A], _, _, _], children: ReactNode*) =
     runN(c)(l => c(l, children: _*))
 
   implicit class AnyTestExt[A](val v: A) extends AnyVal {

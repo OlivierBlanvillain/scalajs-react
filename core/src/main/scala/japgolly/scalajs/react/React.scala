@@ -17,6 +17,9 @@ object React extends Object {
 
   def createFactory[P,S,B,N <: TopNode](t: ReactComponentType[P,S,B,N]): ReactComponentCU[P,S,B,N] = ???
 
+  def createElement[P,S,B,N <: TopNode](t: ReactComponentType[P,S,B,N]): ReactComponentCU[P,S,B,N] = ???
+  def createElement(tag: String, props: Object = ???, children: ReactNode = ???): ReactDOMElement = ???
+
   def renderComponent(c: ReactComponentU_, n: dom.Node)
     : ReactComponentM_[TopNode] = ???
 
@@ -51,30 +54,42 @@ object React extends Object {
 
 /** `React.Children` */
 trait ReactChildren extends Object {
-  def map(c: PropsChildren, fn: js.Function1[VDom, JAny]): UndefOr[Object] = ???
-  def map(c: PropsChildren, fn: js.Function2[VDom, Number, JAny]): UndefOr[Object] = ???
-  def forEach(c: PropsChildren, fn: js.Function1[VDom, JAny]): Unit = ???
-  def forEach(c: PropsChildren, fn: js.Function2[VDom, Number, JAny]): Unit = ???
+  def map(c: PropsChildren, fn: js.Function1[ReactNode, JAny]): UndefOr[Object] = ???
+  def map(c: PropsChildren, fn: js.Function2[ReactNode, Number, JAny]): UndefOr[Object] = ???
+  def forEach(c: PropsChildren, fn: js.Function1[ReactNode, JAny]): Unit = ???
+  def forEach(c: PropsChildren, fn: js.Function2[ReactNode, Number, JAny]): Unit = ???
   /** WARNING: Throws an exception is exact number of children is not 1. */
-  def only(c: PropsChildren): VDom = ???
+  def only(c: PropsChildren): ReactNode = ???
   def count(c: PropsChildren): Number = ???
 }
-
-/** A React DOM representation of HTML. Could be React.DOM output, or a React component. */
-// TODO fuck this off
-trait VDom extends Object
 
 trait ReactComponentSpec[Props, State, +Backend, +Node <: TopNode] extends Object
 
 /** The meat in React's createClass-createFactory sandwich. */
 trait ReactComponentType[Props, State, +Backend, +Node <: TopNode] extends Object
 
-trait ReactElement_ extends Object {
+/**
+ * https://gist.github.com/sebmarkbage/fcb1b6ab493b0c77d589 indicates children can be a super type of ReactElement.
+ * Array and null are acceptable, thus this can be 0-n elements.
+ */
+trait ReactNode extends Object
+
+/** ReactElement = ReactComponentElement | ReactDOMElement  */
+trait ReactElement extends Object with ReactNode {
   def key: UndefOr[String] = ???
+  def ref: UndefOr[String] = ???
 }
 
-trait ReactElement[Props]
-  extends ReactElement_
+/** A React virtual DOM element, such as 'div', 'table', etc. */
+trait ReactDOMElement extends ReactElement {
+  def `type`: String = ???
+  def typ   : String = `type`
+  def props : Object = ???
+}
+
+/** An instance of a React component. Prefer using the subtype ReactComponentU instead. */
+trait ReactComponentElement[Props]
+  extends ReactElement
      with ComponentScope_P[Props]
 
 /** A JS function that creates a React component instance. */
@@ -82,11 +97,11 @@ trait ReactComponentC_ extends JFn
 
 /** The underlying function that creates a Scala-based React component instance. */
 trait ReactComponentCU[Props, State, +Backend, +Node <: TopNode] extends ReactComponentC_ {
-  def apply(props: WrapObj[Props], children: VDom*): ReactComponentU[Props, State, Backend, Node] = ???
+  def apply(props: WrapObj[Props], children: ReactNode*): ReactComponentU[Props, State, Backend, Node] = ???
 }
 
 /** An unmounted component. Not guaranteed to have been created by Scala, could be a React addon. */
-trait ReactComponentU_ extends ReactElement_ with VDom {
+trait ReactComponentU_ extends ReactElement {
   def dynamic = this.asInstanceOf[Dynamic]
 }
 

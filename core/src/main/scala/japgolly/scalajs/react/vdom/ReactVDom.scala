@@ -8,8 +8,8 @@ import scalatags.generic._
 import japgolly.scalajs.react._
 
 object ReactVDom
-    extends Bundle[VDomBuilder, ReactOutput, ReactFragT]
-    with Aliases[VDomBuilder, ReactOutput, ReactFragT] {
+    extends Bundle[VDomBuilder, ReactElement, ReactFragT]
+    with Aliases[VDomBuilder, ReactElement, ReactFragT] {
 
   object attrs extends ReactVDom.Cap with Attrs with ExtraAttrs
   object tags extends ReactVDom.Cap with ReactTags
@@ -40,9 +40,9 @@ object ReactVDom
     object * extends Cap with Attrs with Styles
   }
 
-  override type Tag = ReactVDom.TypedTag[ReactOutput]
+  override type Tag = ReactVDom.TypedTag[ReactElement]
 
-  sealed trait Aggregate extends generic.Aggregate[VDomBuilder, ReactOutput, ReactFragT] {
+  sealed trait Aggregate extends generic.Aggregate[VDomBuilder, ReactElement, ReactFragT] {
     override def genericAttr[T] = new GenericAttr[T](a => a.toString)
     override def genericStyle[T] = new GenericStyle[T]
 
@@ -70,7 +70,7 @@ object ReactVDom
     implicit val jsObjAttr = new GenericAttr[js.Object](f => f)
     implicit def reactRefAttr[T <: Ref[_]] = new GenericAttr[T](_.name)
 
-    implicit def modifierFromVDom(c: VDom): Modifier = new Modifier {
+    implicit def modifierFromVDom(c: ReactNode): Modifier = new Modifier {
       override def applyTo(t: VDomBuilder): Unit = t.appendChild(c)
     }
 
@@ -82,13 +82,14 @@ object ReactVDom
       override def applyTo(t: VDomBuilder): Unit = t.appendChild(cs.asJsArray)
     }
 
-    implicit def modifierFromArrVdom[T <% VDom](c: js.Array[T]): Modifier = new Modifier {
+    implicit def modifierFromArrVdom[T <% ReactNode](c: js.Array[T]): Modifier = new Modifier {
       override def applyTo(t: VDomBuilder): Unit = t.appendChild(c)
     }
 
-    implicit def vdomFromArrVdom[T <% VDom](cs: js.Array[T]): VDom = cs.asInstanceOf[VDom]
-    implicit def vdomFromSeqVdom[T <% VDom](cs: Seq[T])     : VDom = cs.asJsArray
-    implicit def vdomFromSeqTag            (cs: Seq[Tag])   : VDom = cs.toJsArray
+    // TODO fuck these off too
+    implicit def vdomFromArrVdom[T <% ReactNode](cs: js.Array[T]): ReactNode = cs.asInstanceOf[ReactNode]
+    implicit def vdomFromSeqVdom[T <% ReactNode](cs: Seq[T])     : ReactNode = cs.asJsArray
+    implicit def vdomFromSeqTag                 (cs: Seq[Tag])   : ReactNode = cs.toJsArray
 
     @inline final implicit def autoRender(t: Tag) = t.render
     @inline final implicit def autoRenderS(s: Seq[Tag]) = s.map(_.render)
@@ -120,17 +121,17 @@ object ReactVDom
   }
 
   trait Cap extends Util { self =>
-    type ConcreteHtmlTag[T <: ReactOutput] = TypedTag[T]
+    type ConcreteHtmlTag[T <: ReactElement] = TypedTag[T]
 
     protected[this] implicit val stringAttrX: AttrValue[String] = new GenericAttr[String](s => s)
     protected[this] implicit val stringStyleX: StyleValue[String] = new GenericStyle[String]
 
-    def makeAbstractTypedTag[T <: ReactOutput](tag: String, void: Boolean, namespaceConfig: Namespace): TypedTag[T] =
+    def makeAbstractTypedTag[T <: ReactElement](tag: String, void: Boolean, namespaceConfig: Namespace): TypedTag[T] =
       TypedTag(tag, Nil, void, namespaceConfig)
 
     implicit class SeqFrag[A <% Frag](xs: Seq[A]) extends Frag{
       def applyTo(t: VDomBuilder): Unit = xs.foreach(_.applyTo(t))
-      def render: ReactOutput = {
+      def render: ReactElement = {
         val b = new VDomBuilder()
 
         applyTo(b)
@@ -164,7 +165,7 @@ object ReactVDom
     }
   }
 
-  final case class TypedTag[+Output <: ReactOutput](tag: String = "",
+  final case class TypedTag[+Output <: ReactElement](tag: String = "",
                                                     modifiers: List[Seq[Modifier]],
                                                     void: Boolean = false,
                                                     namespace: Namespace)
@@ -238,6 +239,6 @@ object ReactVDom
 
   implicit final class ArrayChildrenExt[A](val as: Seq[A]) extends AnyVal {
     @inline def asJsArray = js.Array(as: _*)
-    @inline def toJsArray(implicit ev: A =:= TypedTag[ReactOutput]) = js.Array(as.map(_.render): _*)
+    @inline def toJsArray(implicit ev: A =:= TypedTag[ReactElement]) = js.Array(as.map(_.render): _*)
   }
 }
