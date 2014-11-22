@@ -25,7 +25,7 @@ object CoreTest extends TestSuite {
     'scalatags {
       def test(subj: ReactElement, exp: String): Unit =
         ReactComponentB[Unit]("tmp").render((_,_) => subj).buildU.apply() shouldRender exp
-      val reactNode: ReactNode = H1("cool")
+      def reactNode: ReactNode = H1("cool")
       def checkbox(check: Boolean) = input(`type` := "checkbox", checked := check)
 
       'int       - test(div(123),                      "<div>123</div>")
@@ -45,6 +45,11 @@ object CoreTest extends TestSuite {
       'checkboxF - test(checkbox(false),               """<input type="checkbox">""")
 
       'dangerouslySetInnerHtml - test(div(dangerouslySetInnerHtml("<span>")), "<div><span></div>")
+
+      'combination {
+        test(div(cls := "hi", "Str: ", 123, JArray(H1("a"), H1("b")), p(cls := "pp")("!")),
+        """<div class="hi">Str: 123<h1>a</h1><h1>b</h1><p class="pp">!</p></div>""")
+      }
     }
 
     'props {
