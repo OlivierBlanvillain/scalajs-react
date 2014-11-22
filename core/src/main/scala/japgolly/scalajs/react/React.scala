@@ -18,7 +18,7 @@ object React extends Object {
   def createFactory[P,S,B,N <: TopNode](t: ReactComponentType[P,S,B,N]): ReactComponentCU[P,S,B,N] = ???
 
   def createElement[P,S,B,N <: TopNode](t: ReactComponentType[P,S,B,N]): ReactComponentCU[P,S,B,N] = ???
-  def createElement(tag: String, props: Object = ???, children: ReactNode = ???): ReactDOMElement = ???
+  def createElement(tag: String, props: Object = ???, children: UndefOr[ReactNode] = ???): ReactDOMElement = ???
 
   def renderComponent(c: ReactComponentU_, n: dom.Node)
     : ReactComponentM_[TopNode] = ???

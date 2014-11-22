@@ -2,6 +2,7 @@ package japgolly.scalajs.react.vdom
 
 import scala.scalajs.js
 import japgolly.scalajs.react.{ReactElement, ReactNode, React}
+import scala.scalajs.js.{UndefOr, undefined}
 
 private[vdom] object VDomBuilder  {
 
@@ -22,10 +23,13 @@ private[vdom] final class VDomBuilder {
 
   private[this] var props = new js.Object
   private[this] var style = new js.Object
-  private[this] var children = new js.Array[ReactFragT]()
+  private[this] var children: UndefOr[js.Array[ReactFragT]] = undefined
 
-  def appendChild(c: ReactFragT): Unit =
-    children.push(c)
+  def appendChild(c: ReactFragT): Unit = {
+    if (children.isEmpty)
+      children = new js.Array[ReactFragT]()
+    children.get.push(c)
+  }
 
   def addAttr(k: String, v: js.Any): Unit =
     set(props, attrTranslations.getOrElse(k, k), v)
@@ -40,6 +44,6 @@ private[vdom] final class VDomBuilder {
 
   def render(tag: String): ReactElement = {
     if (hasStyle) set(props, "style", style)
-    React.createElement(tag, props, children.asInstanceOf[ReactNode]) // TODO shouldn't need a cast
+    React.createElement(tag, props, children.map[ReactNode](a => a))
   }
 }

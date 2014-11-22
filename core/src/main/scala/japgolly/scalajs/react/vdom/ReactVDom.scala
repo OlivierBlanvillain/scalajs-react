@@ -70,29 +70,12 @@ object ReactVDom
     implicit val jsObjAttr = new GenericAttr[js.Object](f => f)
     implicit def reactRefAttr[T <: Ref[_]] = new GenericAttr[T](_.name)
 
-    implicit def modifierFromVDom(c: ReactNode): Modifier = new Modifier {
+    implicit def reactNodeAsDomChild[T <% ReactNode](c: T): Modifier = new Modifier {
       override def applyTo(t: VDomBuilder): Unit = t.appendChild(c)
     }
 
-    implicit def modifierFromPropsChildren(c: PropsChildren): Modifier = new Modifier {
-      override def applyTo(t: VDomBuilder): Unit = t.appendChild(c)
-    }
-
-    implicit def modifierFromSeqRCU_(cs: Seq[ReactComponentU_]): Modifier = new Modifier {
-      override def applyTo(t: VDomBuilder): Unit = t.appendChild(cs.asJsArray)
-    }
-
-    implicit def modifierFromArrVdom[T <% ReactNode](c: js.Array[T]): Modifier = new Modifier {
-      override def applyTo(t: VDomBuilder): Unit = t.appendChild(c)
-    }
-
-    // TODO fuck these off too
-    implicit def vdomFromArrVdom[T <% ReactNode](cs: js.Array[T]): ReactNode = cs.asInstanceOf[ReactNode]
-    implicit def vdomFromSeqVdom[T <% ReactNode](cs: Seq[T])     : ReactNode = cs.asJsArray
-    implicit def vdomFromSeqTag                 (cs: Seq[Tag])   : ReactNode = cs.toJsArray
-
-    @inline final implicit def autoRender(t: Tag) = t.render
-    @inline final implicit def autoRenderS(s: Seq[Tag]) = s.map(_.render)
+    @inline implicit def autoRender(t: Tag)      : ReactElement      = t.render
+    @inline implicit def autoRenderS(t: Seq[Tag]): Seq[ReactElement] = t.map(_.render)
 
     final def compositeAttr[A](k: Attr, f: (A, List[A]) => A, e: => Modifier = EmptyTag) =
       new CompositeAttr(k, f, e)
@@ -235,10 +218,5 @@ object ReactVDom
   implicit final class ReactBoolExt(val a: Boolean) extends AnyVal {
     @inline def &&(m: => Modifier): Modifier = if (a) m else EmptyTag
     // @inline def :=>[V](v: => V): Option[V] = if (a) Some(v) else None
-  }
-
-  implicit final class ArrayChildrenExt[A](val as: Seq[A]) extends AnyVal {
-    @inline def asJsArray = js.Array(as: _*)
-    @inline def toJsArray(implicit ev: A =:= TypedTag[ReactElement]) = js.Array(as.map(_.render): _*)
   }
 }

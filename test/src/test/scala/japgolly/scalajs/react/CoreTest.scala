@@ -6,6 +6,7 @@ import org.scalajs.dom.HTMLInputElement
 import vdom.ReactVDom._, all.{Tag => _, _}
 import TestUtil._
 import test.{DebugJs, ReactTestUtils}
+import scala.scalajs.js
 
 object CoreTest extends TestSuite {
 
@@ -24,41 +25,24 @@ object CoreTest extends TestSuite {
     'scalatags {
       def test(subj: ReactElement, exp: String): Unit =
         ReactComponentB[Unit]("tmp").render((_,_) => subj).buildU.apply() shouldRender exp
-
-      def eh: SyntheticDragEvent[dom.Node] => Unit = ???
-      def attr(t: Tag) = t(onclick ==> eh) // compilation test
-
-      'numericRendering - test(div(123), "<div>123</div>")
-      'rawRendering - test(div(raw("<div>hehe</div>")), """<div>&lt;div&gt;hehe&lt;/div&gt;</div>""")
-      'seqRendering - test(div(Seq(span(1), span(2))), "<div><span>1</span><span>2</span></div>")
-
+      val reactNode: ReactNode = H1("cool")
       def checkbox(check: Boolean) = input(`type` := "checkbox", checked := check)
-      'checkboxT - test(checkbox(true), """<input type="checkbox" checked>""")
-      'checkboxF - test(checkbox(false), """<input type="checkbox">""")
 
-      'listOfScalatags {
-        val X = ReactComponentB[List[String]]("X").render(P => {
-          def createItem(itemText: String) = li(itemText)
-          ul(P map createItem)
-        }).build
-        X(List("123","abc")) shouldRender "<ul><li>123</li><li>abc</li></ul>"
-      }
+      'int       - test(div(123),                    "<div>123</div>")
+      'long      - test(div(123L),                   "<div>123</div>")
+      'double    - test(div(12.3),                   "<div>12.3</div>")
+      'jsNumber  - test(div(123: js.Number),         "<div>123</div>")
+      'string    - test(div("yo"),                   "<div>yo</div>")
+      'reactNode - test(div(reactNode),              "<div><h1>cool</h1></div>")
+      'comp      - test(div(H1("a")),                "<div><h1>a</h1></div>")
+      'raw       - test(div(raw("<div>hehe</div>")), """<div>&lt;div&gt;hehe&lt;/div&gt;</div>""")
+      'seqTag    - test(div(Seq (span(1), span(2))), "<div><span>1</span><span>2</span></div>")
+      'listTag   - test(div(List(span(1), span(2))), "<div><span>1</span><span>2</span></div>")
+      'listComp  - test(div(List(H1("a"), H1("b"))), "<div><h1>a</h1><h1>b</h1></div>")
+      'checkboxT - test(checkbox(true),              """<input type="checkbox" checked>""")
+      'checkboxF - test(checkbox(false),             """<input type="checkbox">""")
 
-      'listOfReactComponents {
-        val X = ReactComponentB[List[String]]("X").render(P => ul(P.map(i => H1(i)))).build
-        X(List("123","abc")) shouldRender "<ul><h1>123</h1><h1>abc</h1></ul>"
-      }
-
-      'vdom {
-        val v: ReactElement = H1("cool")
-        val X = ReactComponentB[Unit]("X").render(_ => div(v)).buildU
-        X() shouldRender "<div><h1>cool</h1></div>"
-      }
-
-      'dangerouslySetInnerHtml {
-        val X = ReactComponentB[Unit]("X").render(_ => div(dangerouslySetInnerHtml("<span>"))).buildU
-        X() shouldRender "<div><span></div>"
-      }
+      'dangerouslySetInnerHtml - test(div(dangerouslySetInnerHtml("<span>")), "<div><span></div>")
     }
 
     'props {
