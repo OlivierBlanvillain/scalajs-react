@@ -118,7 +118,7 @@ final class ReactComponentB[P, S, B](val name: String,
 
   final class Builder[C, N <: TopNode] private[ReactComponentB](cc: ReactComponentCU[P,S,B,N] => C) {
 
-    def buildSpec: ComponentSpec[P, S, B, N] = {
+    def buildSpec: ReactComponentSpec[P, S, B, N] = {
       val spec = Dynamic.literal(
         "displayName" -> name,
         "backend" -> 0,
@@ -154,11 +154,11 @@ final class ReactComponentB[P, S, B](val name: String,
         spec.updateDynamic("componentWillReceiveProps")(g: ThisFunction)
       }
 
-      spec.asInstanceOf[ComponentSpec[P, S, B, N]]
+      spec.asInstanceOf[ReactComponentSpec[P, S, B, N]]
     }
 
     def build: C =
-      cc(React.createClass(buildSpec))
+      cc(React.createFactory(React.createClass(buildSpec)))
 
     @deprecated("As the B in ReactComponentB is for Builder, create() has been renamed to build() and will be removed in 0.7.0.", "0.5.0")
     def create = build
