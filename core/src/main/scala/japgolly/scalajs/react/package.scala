@@ -78,16 +78,28 @@ package object react {
     def param[I, T <: TopNode](f: I => String) = new RefP[I, T](f)
   }
 
-  // Scalatags causes this to fail ↓
-  //@inline implicit def reactNodeInhabitableN                (v: js.Number)         : ReactNode = v.asInstanceOf[ReactNode]
-  @inline implicit def reactNodeInhabitableS                (v: js.String)         : ReactNode = v.asInstanceOf[ReactNode]
-  @inline implicit def reactNodeInhabitableA[T <% ReactNode](v: js.Array[T])       : ReactNode = v.asInstanceOf[ReactNode]
-  @inline implicit def reactNodeInhabitableC[T <% ReactNode](v: TraversableOnce[T]): ReactNode = v.toJsArray
-  @inline implicit def reactNodeInhabitablePC               (v: PropsChildren)     : ReactNode = v.asInstanceOf[ReactNode]
-
-  implicit final class ScalaCollIntoJs[A](val as: TraversableOnce[A]) extends AnyVal {
-    @inline def toJsArray = js.Array(as.toSeq: _*)
+  implicit final class ScalaColl_Ext[A](val as: TraversableOnce[A]) extends AnyVal {
+    @inline def toJsArray: js.Array[A] =
+      js.Array(as.toSeq: _*)
+    @inline def toReactNodeArray(implicit ev: A => ReactNode): js.Array[ReactNode] = {
+      val r = new js.Array[ReactNode]()
+      as.foreach(a => r.push(ev(a)))
+      r
+    }
   }
+
+  implicit final class JsArray_Ext[A](val as: js.Array[A]) extends AnyVal {
+    @inline def toReactNodeArray(implicit ev: A => ReactNode): js.Array[ReactNode] =
+      as.map(ev: js.Function1[A, ReactNode])
+  }
+
+  // Scalatags causes this to fail ↓
+  //@inline implicit def reactNodeInhabitableN               (v: js.Number)          : ReactNode = v.asInstanceOf[ReactNode]
+  @inline implicit def reactNodeInhabitableS                 (v: js.String)          : ReactNode = v.asInstanceOf[ReactNode]
+  @inline implicit def reactNodeInhabitableAn                (v: js.Array[ReactNode]): ReactNode = v.asInstanceOf[ReactNode]
+  @inline implicit def reactNodeInhabitableAt[T <% ReactNode](v: js.Array[T])        : ReactNode = v.toReactNodeArray
+  @inline implicit def reactNodeInhabitableC[T <% ReactNode] (v: TraversableOnce[T]) : ReactNode = v.toReactNodeArray
+  @inline implicit def reactNodeInhabitablePC                (v: PropsChildren)      : ReactNode = v.asInstanceOf[ReactNode]
 
   // ===================================================================================================================
 

@@ -6,7 +6,7 @@ import org.scalajs.dom.HTMLInputElement
 import vdom.ReactVDom._, all.{Tag => _, _}
 import TestUtil._
 import test.{DebugJs, ReactTestUtils}
-import scala.scalajs.js
+import scala.scalajs.js, js.{Array => JArray}
 
 object CoreTest extends TestSuite {
 
@@ -28,19 +28,21 @@ object CoreTest extends TestSuite {
       val reactNode: ReactNode = H1("cool")
       def checkbox(check: Boolean) = input(`type` := "checkbox", checked := check)
 
-      'int       - test(div(123),                    "<div>123</div>")
-      'long      - test(div(123L),                   "<div>123</div>")
-      'double    - test(div(12.3),                   "<div>12.3</div>")
-      'jsNumber  - test(div(123: js.Number),         "<div>123</div>")
-      'string    - test(div("yo"),                   "<div>yo</div>")
-      'reactNode - test(div(reactNode),              "<div><h1>cool</h1></div>")
-      'comp      - test(div(H1("a")),                "<div><h1>a</h1></div>")
-      'raw       - test(div(raw("<div>hehe</div>")), """<div>&lt;div&gt;hehe&lt;/div&gt;</div>""")
-      'seqTag    - test(div(Seq (span(1), span(2))), "<div><span>1</span><span>2</span></div>")
-      'listTag   - test(div(List(span(1), span(2))), "<div><span>1</span><span>2</span></div>")
-      'listComp  - test(div(List(H1("a"), H1("b"))), "<div><h1>a</h1><h1>b</h1></div>")
-      'checkboxT - test(checkbox(true),              """<input type="checkbox" checked>""")
-      'checkboxF - test(checkbox(false),             """<input type="checkbox">""")
+      'int       - test(div(123),                      "<div>123</div>")
+      'long      - test(div(123L),                     "<div>123</div>")
+      'double    - test(div(12.3),                     "<div>12.3</div>")
+      'jsNumber  - test(div(123: js.Number),           "<div>123</div>")
+      'string    - test(div("yo"),                     "<div>yo</div>")
+      'reactNode - test(div(reactNode),                "<div><h1>cool</h1></div>")
+      'comp      - test(div(H1("a")),                  "<div><h1>a</h1></div>")
+      'raw       - test(div(raw("<div>hehe</div>")),   """<div>&lt;div&gt;hehe&lt;/div&gt;</div>""")
+      'seqTag    - test(div(Seq (span(1), span(2))),   "<div><span>1</span><span>2</span></div>")
+      'listTag   - test(div(List(span(1), span(2))),   "<div><span>1</span><span>2</span></div>")
+      'listComp  - test(div(List(H1("a"), H1("b"))),   "<div><h1>a</h1><h1>b</h1></div>")
+      'jAryTag   - test(div(JArray(span(1), span(2))), "<div><span>1</span><span>2</span></div>")
+      'jAryComp  - test(div(JArray(H1("a"), H1("b"))), "<div><h1>a</h1><h1>b</h1></div>")
+      'checkboxT - test(checkbox(true),                """<input type="checkbox" checked>""")
+      'checkboxF - test(checkbox(false),               """<input type="checkbox">""")
 
       'dangerouslySetInnerHtml - test(div(dangerouslySetInnerHtml("<span>")), "<div><span></div>")
     }
