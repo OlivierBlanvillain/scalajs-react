@@ -5,7 +5,7 @@ import org.scalajs.dom
 import org.scalajs.dom.HTMLInputElement
 import vdom.ReactVDom._, all.{Tag => _, _}
 import TestUtil._
-import test.ReactTestUtils
+import test.{DebugJs, ReactTestUtils}
 
 object CoreTest extends TestSuite {
 
@@ -98,9 +98,10 @@ object CoreTest extends TestSuite {
 
     'keys {
       'specifiableThruCtor {
-        val A = collector1(_.propsKey)
-        val r = run1(A)(A.withKey("great")(_))
-        assert(r.get == "great")
+        val k1 = "heasdf"
+        val xx = CA.withKey(k1)()
+        val k2 = xx.key
+        k2 mustEqual k1
       }
     }
 

@@ -61,12 +61,21 @@ trait ReactChildren extends Object {
 }
 
 /** A React DOM representation of HTML. Could be React.DOM output, or a React component. */
+// TODO fuck this off
 trait VDom extends Object
 
 trait ReactComponentSpec[Props, State, +Backend, +Node <: TopNode] extends Object
 
 /** The meat in React's createClass-createFactory sandwich. */
 trait ReactComponentType[Props, State, +Backend, +Node <: TopNode] extends Object
+
+trait ReactElement_ extends Object {
+  def key: UndefOr[String] = ???
+}
+
+trait ReactElement[Props]
+  extends ReactElement_
+     with ComponentScope_P[Props]
 
 /** A JS function that creates a React component instance. */
 trait ReactComponentC_ extends JFn
@@ -77,22 +86,23 @@ trait ReactComponentCU[Props, State, +Backend, +Node <: TopNode] extends ReactCo
 }
 
 /** An unmounted component. Not guaranteed to have been created by Scala, could be a React addon. */
-trait ReactComponentU_ extends Object with VDom {
+trait ReactComponentU_ extends ReactElement_ with VDom {
   def dynamic = this.asInstanceOf[Dynamic]
 }
 
 /** A mounted component. Not guaranteed to have been created by Scala, could be a React addon. */
 trait ReactComponentM_[+Node <: TopNode]
   extends ReactComponentU_
-  with ComponentScope_M[Node]
+     with ComponentScope_M[Node]
 
 /** An unmounted Scala component. */
-trait ReactComponentU[Props, State, +Backend, +Node <: TopNode] extends ReactComponentU_
+trait ReactComponentU[Props, State, +Backend, +Node <: TopNode]
+  extends ReactComponentU_
 
 /** A mounted Scala component. */
 trait ReactComponentM[Props, State, +Backend, +Node <: TopNode]
   extends ReactComponentM_[Node]
-  with ComponentScopeMN[Props, State, Backend, Node]
+     with ComponentScopeMN[Props, State, Backend, Node]
 
 // =====================================================================================================================
 // Scope
@@ -135,33 +145,33 @@ trait ComponentScope_M[+Node <: TopNode] extends Object {
 /** Type of an unmounted component's `this` scope. */
 trait ComponentScopeU[Props, State, +Backend]
   extends ComponentScope_PS[Props, State]
-  with ComponentScope_P[Props]
-  with ComponentScope_SS[State]
-  with ComponentScope_B[Backend]
+     with ComponentScope_P[Props]
+     with ComponentScope_SS[State]
+     with ComponentScope_B[Backend]
   // prohibits: ComponentScope_M.*
 
 /** Type of a component's `this` scope during componentWillUpdate. */
 trait ComponentScopeWU[Props, +State, +Backend]
   extends ComponentScope_PS[Props, State]
-  with ComponentScope_P[Props]
-  with ComponentScope_S[State]
-  with ComponentScope_B[Backend]
-  with ComponentScope_M[TopNode]
+     with ComponentScope_P[Props]
+     with ComponentScope_S[State]
+     with ComponentScope_B[Backend]
+     with ComponentScope_M[TopNode]
   // prohibits: .setState
 
 /** Type of a mounted component's `this` scope. */
 trait ComponentScopeM[Props, State, +Backend] extends ComponentScopeMN[Props, State, Backend, TopNode]
 trait ComponentScopeMN[Props, State, +Backend, +Node <: TopNode]
   extends ComponentScope_PS[Props, State]
-  with ComponentScopeU[Props, State, Backend]
-  with ComponentScope_M[Node]
+     with ComponentScopeU[Props, State, Backend]
+     with ComponentScope_M[Node]
 
 /** Type of a component's `this` scope as is available to backends. */
 trait BackendScope[Props, State]
   extends ComponentScope_PS[Props, State]
-  with ComponentScope_P[Props]
-  with ComponentScope_SS[State]
-  with ComponentScope_M[TopNode]
+     with ComponentScope_P[Props]
+     with ComponentScope_SS[State]
+     with ComponentScope_M[TopNode]
   // prohibits: .backend
 
 /** Type of `this.refs` */
@@ -172,7 +182,6 @@ trait RefsObject extends Object {
 
 /** Additional methods that React mixes into `this.props` */
 trait PropsMixedIn extends Object {
-  def key: UndefOr[String] = ???
   def children: PropsChildren = ???
 }
 

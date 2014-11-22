@@ -129,7 +129,6 @@ package object react {
 
   implicit final class ComponentScope_P_Ext[Props](val u: ComponentScope_P[Props]) extends AnyVal {
     @inline def props = u._props.v
-    @inline def propsKey = u._props.key
     @inline def propsChildren = u._props.children
   }
 

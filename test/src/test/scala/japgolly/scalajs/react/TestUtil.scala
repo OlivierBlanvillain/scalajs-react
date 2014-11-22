@@ -51,4 +51,12 @@ object TestUtil {
   def runNC[A](c: ReactComponentC.ReqProps[ListBuffer[A], _, _, _], children: VDom*) =
     runN(c)(l => c(l, children: _*))
 
+  implicit class AnyTestExt[A](val v: A) extends AnyVal {
+
+    // nice output in assertion macro
+    def mustEqual(e: A): Unit = {
+      val a = v
+      assert(a == e)
+    }
+  }
 }
