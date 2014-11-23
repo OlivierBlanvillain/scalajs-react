@@ -110,7 +110,7 @@ trait ReactComponentSpec[Props, State, +Backend, +Node <: TopNode] extends Objec
 trait ReactComponentType[Props, State, +Backend, +Node <: TopNode] extends Object
 
 /**
- * https://gist.github.com/sebmarkbage/fcb1b6ab493b0c77d589 indicates children can be a super type of ReactElement.
+ * http://facebook.github.io/react/docs/glossary.html indicates children can be a super type of ReactElement.
  * Array and null are acceptable, thus this can be 0-n elements.
  */
 trait ReactNode extends Object
