@@ -4,6 +4,7 @@ History
 ### 0.6.0 (unreleased)
 
 * Changed `ReactS.callback` method signatures from `(c)(a)` to `(a,c)`. **This breaks backwards compatibility.**
+find -name '*.scala' -exec perl -pi -e 's/(?<!\w)VDom(?!\w)/ReactElement/g' {} +
 
 ### 0.5.2 ([commit log](https://github.com/japgolly/scalajs-react/compare/v0.5.1...v0.5.2))
 

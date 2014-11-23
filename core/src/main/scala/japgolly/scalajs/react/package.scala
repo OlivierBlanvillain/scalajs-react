@@ -44,6 +44,9 @@ package object react {
   type ReactUIEventI          = SyntheticUIEvent         [dom.HTMLInputElement]
   type ReactWheelEventI       = SyntheticWheelEvent      [dom.HTMLInputElement]
 
+  @deprecated("React 0.12 has introduced ReactElement which is what VDom was created to represent. Replace VDom with ReactElement.", "0.6.0")
+  type VDom = ReactElement
+
   // ===================================================================================================================
 
   // TODO WrapObj was one of the first things I did when starting with ScalaJS. Reconsider.
