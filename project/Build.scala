@@ -17,7 +17,7 @@ object ScalajsReact extends Build {
     _.enablePlugins(ScalaJSPlugin)
       .settings(
         organization       := "com.github.japgolly.scalajs-react",
-        version            := "0.7.2-RC1",
+        version            := "0.7.2",
         homepage           := Some(url("https://github.com/japgolly/scalajs-react")),
         licenses           += ("Apache-2.0", url("http://opensource.org/licenses/Apache-2.0")),
         scalaVersion       := Scala211,
@@ -67,8 +67,7 @@ object ScalajsReact extends Build {
     )
 
   def utestSettings: PE =
-    _.settings(utest.jsrunner.Plugin.utestJsSettings: _*)
-      .configure(useReact("test"))
+    _.configure(useReact("test"))
       .settings(
         scalaJSStage in Test := FastOptStage,
         requiresDOM := true,
@@ -89,7 +88,7 @@ object ScalajsReact extends Build {
 
   // ==============================================================================================
   lazy val root = Project("root", file("."))
-    .aggregate(core, test, scalaz71, monocle, extra, ghpages)
+    .aggregate(core) // , test, scalaz71, monocle, extra, ghpages)
     .configure(commonSettings, preventPublication, addCommandAliases(
       "t"  -> "; test:compile ; test/test",
       "tt" -> ";+test:compile ;+test/test",
@@ -104,44 +103,44 @@ object ScalajsReact extends Build {
       libraryDependencies ++= Seq(
         "org.scala-js" %%% "scalajs-dom" % "0.7.0"))
 
-  lazy val test = project
-    .configure(commonSettings, publicationSettings, utestSettings)
-    .dependsOn(core, scalaz71, extra, monocle)
-    .settings(
-      name := "test",
-      scalacOptions += "-language:reflectiveCalls")
+  // lazy val test = project
+  //   .configure(commonSettings, publicationSettings, utestSettings)
+  //   .dependsOn(core, scalaz71, extra, monocle)
+  //   .settings(
+  //     name := "test",
+  //     scalacOptions += "-language:reflectiveCalls")
 
-  // ==============================================================================================
-  def scalazModule(name: String, version: String) = {
-    val shortName = name.replaceAll("[^a-zA-Z0-9]+", "")
-    Project(shortName, file(name))
-      .configure(commonSettings, publicationSettings, extModuleName(shortName))
-      .dependsOn(core)
-      .settings(
-        libraryDependencies += "com.github.japgolly.fork.scalaz" %%% "scalaz-effect" % version)
-  }
+  // // ==============================================================================================
+  // def scalazModule(name: String, version: String) = {
+  //   val shortName = name.replaceAll("[^a-zA-Z0-9]+", "")
+  //   Project(shortName, file(name))
+  //     .configure(commonSettings, publicationSettings, extModuleName(shortName))
+  //     .dependsOn(core)
+  //     .settings(
+  //       libraryDependencies += "com.github.japgolly.fork.scalaz" %%% "scalaz-effect" % "7.1.0-4")
+  // }
 
-  lazy val scalaz71 = scalazModule("scalaz-7.1", "7.1.0-4")
+  // lazy val scalaz71 = scalazModule("scalaz-7.1", "7.1.0-4")
 
-  // ==============================================================================================
-  lazy val monocle = project
-    .configure(commonSettings, publicationSettings, extModuleName("monocle"))
-    .dependsOn(core, scalaz71)
-    .settings(
-      libraryDependencies += "com.github.japgolly.fork.monocle" %%% "monocle-core" % "1.0.1")
+  // // ==============================================================================================
+  // lazy val monocle = project
+  //   .configure(commonSettings, publicationSettings, extModuleName("monocle"))
+  //   .dependsOn(core, scalaz71)
+  //   .settings(
+  //     libraryDependencies += "com.github.japgolly.fork.monocle" %%% "monocle-core" % "1.0.1")
 
-  // ==============================================================================================
-  lazy val extra = project
-    .configure(commonSettings, publicationSettings)
-    .dependsOn(core, scalaz71)
-    .settings(
-      name := "extra")
+  // // ==============================================================================================
+  // lazy val extra = project
+  //   .configure(commonSettings, publicationSettings)
+  //   .dependsOn(core, scalaz71)
+  //   .settings(
+  //     name := "extra")
 
-  // ==============================================================================================
-  lazy val ghpages = Project("gh-pages", file("gh-pages"))
-    .dependsOn(core, scalaz71, extra, monocle)
-    .configure(commonSettings, useReact(), preventPublication)
-    .settings(
-      emitSourceMaps := false,
-      artifactPath in (Compile, fullOptJS) := file("gh-pages/res/ghpages.js"))
+  // // ==============================================================================================
+  // lazy val ghpages = Project("gh-pages", file("gh-pages"))
+  //   .dependsOn(core, scalaz71, extra, monocle)
+  //   .configure(commonSettings, useReact(), preventPublication)
+  //   .settings(
+  //     emitSourceMaps := false,
+  //     artifactPath in (Compile, fullOptJS) := file("gh-pages/res/ghpages.js"))
 }
