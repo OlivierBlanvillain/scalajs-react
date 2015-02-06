@@ -13,13 +13,13 @@ trait SvgTags {
    *
    * MDN
    */
-  final val altglyph = "altglyph".tag[dom.SVGElement]
+  final val altglyph = "altglyph".tag[dom.raw.SVGElement]
   /**
    * The altGlyphDef element defines a substitution representation for glyphs.
    *
    * MDN
    */
-  final val altglyphdef = "altglyphdef".tag[dom.SVGElement]
+  final val altglyphdef = "altglyphdef".tag[dom.raw.SVGElement]
 
   /**
    * The altGlyphItem element provides a set of candidates for glyph substitution
@@ -27,21 +27,21 @@ trait SvgTags {
    *
    * MDN
    */
-  final val altglyphitem = "altglyphitem".tag[dom.SVGElement]
+  final val altglyphitem = "altglyphitem".tag[dom.raw.SVGElement]
   /**
    * The animate element is put inside a shape element and defines how an
    * attribute of an element changes over the animation
    *
    * MDN
    */
-  final val animate = "animate".tag[dom.SVGElement]
+  final val animate = "animate".tag[dom.raw.SVGElement]
   /**
    * The animateMotion element causes a referenced element to move along a
    * motion path.
    *
    * MDN
    */
-  final val animatemotion = "animatemotion".tag[dom.SVGElement]
+  final val animatemotion = "animatemotion".tag[dom.raw.SVGElement]
   /**
    * The animateTransform element animates a transformation attribute on a target
    * element, thereby allowing animations to control translation, scaling,
@@ -49,14 +49,14 @@ trait SvgTags {
    *
    * MDN
    */
-  final val animatetransform = "animatetransform".tag[dom.SVGElement]
+  final val animatetransform = "animatetransform".tag[dom.raw.SVGElement]
   /**
    * The circle element is an SVG basic shape, used to create circles based on a
    * center point and a radius.
    *
    * MDN
    */
-  final val circle = "circle".tag[dom.SVGCircleElement]
+  final val circle = "circle".tag[dom.raw.SVGCircleElement]
   /**
    * The clipping path restricts the region to which paint can be applied.
    * Conceptually, any parts of the drawing that lie outside of the region
@@ -64,13 +64,13 @@ trait SvgTags {
    *
    * MDN
    */
-  final val clippath = "clippath".tag[dom.SVGClipPathElement]
+  final val clippath = "clippath".tag[dom.raw.SVGClipPathElement]
   /**
    * The element allows describing the color profile used for the image.
    *
    * MDN
    */
-  final val `color-profile` = "color-profile".tag[dom.SVGElement]
+  final val `color-profile` = "color-profile".tag[dom.raw.SVGElement]
   /**
    * The cursor element can be used to define a platform-independent custom
    * cursor. A recommended approach for defining a platform-independent custom
@@ -80,7 +80,7 @@ trait SvgTags {
    *
    * MDN
    */
-  final val cursorTag = "cursor".tag[dom.SVGElement]
+  final val cursorTag = "cursor".tag[dom.raw.SVGElement]
   /**
    * SVG allows graphical objects to be defined for later reuse. It is
    * recommended that, wherever possible, referenced elements be defined inside
@@ -92,7 +92,7 @@ trait SvgTags {
    *
    * MDN
    */
-  final val defs = "defs".tag[dom.SVGDefsElement]
+  final val defs = "defs".tag[dom.raw.SVGDefsElement]
   /**
    * Each container element or graphics element in an SVG drawing can supply a
    * desc description string where the description is text-only. When the
@@ -104,7 +104,7 @@ trait SvgTags {
    *
    * MDN
    */
-  final val desc = "desc".tag[dom.SVGDescElement]
+  final val desc = "desc".tag[dom.raw.SVGDescElement]
   /**
    * The ellipse element is an SVG basic shape, used to create ellipses based
    * on a center coordinate, and both their x and y radius.
@@ -115,7 +115,7 @@ trait SvgTags {
    *
    * MDN
    */
-  final val ellipse = "ellipse".tag[dom.SVGEllipseElement]
+  final val ellipse = "ellipse".tag[dom.raw.SVGEllipseElement]
   /**
    * The feBlend filter composes two objects together ruled by a certain blending
    * mode. This is similar to what is known from image editing software when
@@ -123,7 +123,7 @@ trait SvgTags {
    *
    * MDN
    */
-  final val feblend = "feblend".tag[dom.SVGFEBlendElement]
+  final val feblend = "feblend".tag[dom.raw.SVGFEBlendElement]
   /**
    * This filter changes colors based on a transformation matrix. Every pixel's
    * color value (represented by an [R,G,B,A] vector) is matrix multiplied to
@@ -131,7 +131,7 @@ trait SvgTags {
    *
    * MDN
    */
-  final val fecolormatrix = "fecolormatrix".tag[dom.SVGFEColorMatrixElement]
+  final val fecolormatrix = "fecolormatrix".tag[dom.raw.SVGFEColorMatrixElement]
   /**
    * The color of each pixel is modified by changing each channel (R, G, B, and
    * A) to the result of what the children fefuncr, fefuncb, fefuncg,
@@ -139,7 +139,7 @@ trait SvgTags {
    *
    * MDN
    */
-  final val fecomponenttransfer = "fecomponenttransfer".tag[dom.SVGComponentTransferFunctionElement]
+  final val fecomponenttransfer = "fecomponenttransfer".tag[dom.raw.SVGComponentTransferFunctionElement]
   /**
    * This filter primitive performs the combination of two input images pixel-wise
    * in image space using one of the Porter-Duff compositing operations: over,
@@ -148,7 +148,7 @@ trait SvgTags {
    *
    * MDN
    */
-  final val fecomposite = "fecomposite".tag[dom.SVGFECompositeElement]
+  final val fecomposite = "fecomposite".tag[dom.raw.SVGFECompositeElement]
   /**
    * the feConvolveMatrix element applies a matrix convolution filter effect.
    * A convolution combines pixels in the input image with neighboring pixels
@@ -158,7 +158,7 @@ trait SvgTags {
    *
    * MDN
    */
-  final val feconvolvematrix = "feconvolvematrix".tag[dom.SVGFEConvolveMatrixElement]
+  final val feconvolvematrix = "feconvolvematrix".tag[dom.raw.SVGFEConvolveMatrixElement]
   /**
    * This filter primitive lights an image using the alpha channel as a bump map.
    * The resulting image, which is an RGBA opaque image, depends on the light
@@ -166,14 +166,14 @@ trait SvgTags {
    *
    * MDN
    */
-  final val fediffuselighting = "fediffuselighting".tag[dom.SVGFEDiffuseLightingElement]
+  final val fediffuselighting = "fediffuselighting".tag[dom.raw.SVGFEDiffuseLightingElement]
   /**
    * This filter primitive uses the pixels values from the image from in2 to
    * spatially displace the image from in.
    *
    * MDN
    */
-  final val fedisplacementmap = "fedisplacementmap".tag[dom.SVGFEDisplacementMapElement]
+  final val fedisplacementmap = "fedisplacementmap".tag[dom.raw.SVGFEDisplacementMapElement]
   /**
    * This filter primitive define a distant light source that can be used
    * within a lighting filter primitive: fediffuselighting or
@@ -181,49 +181,49 @@ trait SvgTags {
    *
    * MDN
    */
-  final val fedistantlighting = "fedistantlighting".tag[dom.SVGFEDistantLightElement]
+  final val fedistantlighting = "fedistantlighting".tag[dom.raw.SVGFEDistantLightElement]
   /**
    * The filter fills the filter subregion with the color and opacity defined by
    * flood-color and flood-opacity.
    *
    * MDN
    */
-  final val feflood = "feflood".tag[dom.SVGFEFloodElement]
+  final val feflood = "feflood".tag[dom.raw.SVGFEFloodElement]
   /**
    * This filter primitive defines the transfer function for the alpha component
    * of the input graphic of its parent fecomponenttransfer element.
    *
    * MDN
    */
-  final val fefunca = "fefunca".tag[dom.SVGFEFuncAElement]
+  final val fefunca = "fefunca".tag[dom.raw.SVGFEFuncAElement]
   /**
    * This filter primitive defines the transfer function for the blue component
    * of the input graphic of its parent fecomponenttransfer element.
    *
    * MDN
    */
-  final val fefuncb = "fefuncb".tag[dom.SVGFEFuncBElement]
+  final val fefuncb = "fefuncb".tag[dom.raw.SVGFEFuncBElement]
   /**
    * This filter primitive defines the transfer function for the green component
    * of the input graphic of its parent fecomponenttransfer element.
    *
    * MDN
    */
-  final val fefuncg = "fefuncg".tag[dom.SVGFEFuncGElement]
+  final val fefuncg = "fefuncg".tag[dom.raw.SVGFEFuncGElement]
   /**
    * This filter primitive defines the transfer function for the red component
    * of the input graphic of its parent fecomponenttransfer element.
    *
    * MDN
    */
-  final val fefuncr = "fefuncr".tag[dom.SVGFEFuncRElement]
+  final val fefuncr = "fefuncr".tag[dom.raw.SVGFEFuncRElement]
   /**
    * The filter blurs the input image by the amount specified in stdDeviation,
    * which defines the bell-curve.
    *
    * MDN
    */
-  final val fegaussianblur = "fegaussianblur".tag[dom.SVGFEGaussianBlurElement]
+  final val fegaussianblur = "fegaussianblur".tag[dom.raw.SVGFEGaussianBlurElement]
 
   /**
    * The feImage filter fetches image data from an external source and provides
@@ -232,7 +232,7 @@ trait SvgTags {
    *
    * MDN
    */
-  final val feimage = "feimage".tag[dom.SVGFEImageElement]
+  final val feimage = "feimage".tag[dom.raw.SVGFEImageElement]
 
   /**
    * The feMerge filter allows filter effects to be applied concurrently
@@ -242,7 +242,7 @@ trait SvgTags {
    *
    * MDN
    */
-  final val femerge = "femerge".tag[dom.SVGFEMergeElement]
+  final val femerge = "femerge".tag[dom.raw.SVGFEMergeElement]
 
   /**
    * The feMergeNode takes the result of another filter to be processed by its
@@ -250,22 +250,22 @@ trait SvgTags {
    *
    * MDN
    */
-  final val femergenode = "femergenode".tag[dom.SVGFEMergeNodeElement]
+  final val femergenode = "femergenode".tag[dom.raw.SVGFEMergeNodeElement]
   /**
    * This filter is used to erode or dilate the input image. It's usefulness
    * lies especially in fattening or thinning effects.
    *
    * MDN
    */
-  final val femorphology = "femorphology".tag[dom.SVGFEMorphologyElement]
+  final val femorphology = "femorphology".tag[dom.raw.SVGFEMorphologyElement]
   /**
    * The input image as a whole is offset by the values specified in the dx
    * and dy attributes. It's used in creating drop-shadows.
    *
    * MDN
    */
-  final val feoffset = "feoffset".tag[dom.SVGFEOffsetElement]
-  final val fepointlight = "fepointlight".tag[dom.SVGFEPointLightElement]
+  final val feoffset = "feoffset".tag[dom.raw.SVGFEOffsetElement]
+  final val fepointlight = "fepointlight".tag[dom.raw.SVGFEPointLightElement]
   /**
    * This filter primitive lights a source graphic using the alpha channel as a
    * bump map. The resulting image is an RGBA image based on the light color.
@@ -277,18 +277,18 @@ trait SvgTags {
    *
    * MDN
    */
-  final val fespecularlighting = "fespecularlighting".tag[dom.SVGFESpecularLightingElement]
+  final val fespecularlighting = "fespecularlighting".tag[dom.raw.SVGFESpecularLightingElement]
   /**
    *
    */
-  final val fespotlight = "fespotlight".tag[dom.SVGFESpotLightElement]
+  final val fespotlight = "fespotlight".tag[dom.raw.SVGFESpotLightElement]
   /**
    * An input image is tiled and the result used to fill a target. The effect
    * is similar to the one of a pattern.
    *
    * MDN
    */
-  final val fetile = "fetile".tag[dom.SVGFETileElement]
+  final val fetile = "fetile".tag[dom.raw.SVGFETileElement]
   /**
    * This filter primitive creates an image using the Perlin turbulence
    * function. It allows the synthesis of artificial textures like clouds or
@@ -296,7 +296,7 @@ trait SvgTags {
    *
    * MDN
    */
-  final val feturbulance = "feturbulance".tag[dom.SVGFETurbulenceElement]
+  final val feturbulance = "feturbulance".tag[dom.raw.SVGFETurbulenceElement]
   /**
    * The filter element serves as container for atomic filter operations. It is
    * never rendered directly. A filter is referenced by using the filter
@@ -304,34 +304,34 @@ trait SvgTags {
    *
    * MDN
    */
-  final val filterTag = "filter".tag[dom.SVGFilterElement]
+  final val filterTag = "filter".tag[dom.raw.SVGFilterElement]
   /**
    * The font element defines a font to be used for text layout.
    *
    * MDN
    */
-  final val font = "font".tag[dom.SVGElement]
+  final val font = "font".tag[dom.raw.SVGElement]
   /**
    * The font-face element corresponds to the CSS @font-face declaration. It
    * defines a font's outer properties.
    *
    * MDN
    */
-  final val `font-face` = "font-face".tag[dom.SVGElement]
+  final val `font-face` = "font-face".tag[dom.raw.SVGElement]
   /**
    * The font-face-format element describes the type of font referenced by its
    * parent font-face-uri.
    *
    * MDN
    */
-  final val `font-face-format` = "font-face-format".tag[dom.SVGElement]
+  final val `font-face-format` = "font-face-format".tag[dom.raw.SVGElement]
   /**
    * The font-face-name element points to a locally installed copy of this font,
    * identified by its name.
    *
    * MDN
    */
-  final val `font-face-name` = "font-face-name".tag[dom.SVGElement]
+  final val `font-face-name` = "font-face-name".tag[dom.raw.SVGElement]
   /**
    * The font-face-src element corresponds to the src property in CSS @font-face
    * descriptions. It serves as container for font-face-name, pointing to
@@ -340,13 +340,13 @@ trait SvgTags {
    *
    * MDN
    */
-  final val `font-face-src` = "font-face-src".tag[dom.SVGElement]
+  final val `font-face-src` = "font-face-src".tag[dom.raw.SVGElement]
   /**
    * The font-face-uri element points to a remote definition of the current font.
    *
    * MDN
    */
-  final val `font-face-uri` = "font-face-uri".tag[dom.SVGElement]
+  final val `font-face-uri` = "font-face-uri".tag[dom.raw.SVGElement]
   /**
    * The foreignObject element allows for inclusion of a foreign XML namespace
    * which has its graphical content drawn by a different user agent. The
@@ -355,7 +355,7 @@ trait SvgTags {
    *
    * MDN
    */
-  final val foreignobject = "foreignobject".tag[dom.SVGElement]
+  final val foreignobject = "foreignobject".tag[dom.raw.SVGElement]
   /**
    * The g element is a container used to group objects. Transformations applied
    * to the g element are performed on all of its child elements. Attributes
@@ -364,48 +364,48 @@ trait SvgTags {
    *
    * MDN
    */
-  final val g = "g".tag[dom.SVGGElement]
+  final val g = "g".tag[dom.raw.SVGGElement]
   /**
    * A glyph defines a single glyph in an SVG font.
    *
    * MDN
    */
-  final val glyph = "glyph".tag[dom.SVGElement]
+  final val glyph = "glyph".tag[dom.raw.SVGElement]
   /**
    * The glyphRef element provides a single possible glyph to the referencing
    * altglyph substitution.
    *
    * MDN
    */
-  final val glyphref = "glyphref".tag[dom.SVGElement]
+  final val glyphref = "glyphref".tag[dom.raw.SVGElement]
   /**
    * The horizontal distance between two glyphs can be fine-tweaked with an
    * hkern Element. This process is known as Kerning.
    *
    * MDN
    */
-  final val hkern = "hkern".tag[dom.SVGElement]
+  final val hkern = "hkern".tag[dom.raw.SVGElement]
   /**
    * The SVG Image Element (image) allows a raster image into be included in
    * an SVG document.
    *
    * MDN
    */
-  final val image = "image".tag[dom.SVGImageElement]
+  final val image = "image".tag[dom.raw.SVGImageElement]
   /**
    * The line element is an SVG basic shape, used to create a line connecting
    * two points.
    *
    * MDN
    */
-  final val line = "line".tag[dom.SVGLineElement]
+  final val line = "line".tag[dom.raw.SVGLineElement]
   /**
    * linearGradient lets authors define linear gradients to fill or stroke
    * graphical elements.
    *
    * MDN
    */
-  final val lineargradient = "lineargradient".tag[dom.SVGLinearGradientElement]
+  final val lineargradient = "lineargradient".tag[dom.raw.SVGLinearGradientElement]
   /**
    * The marker element defines the graphics that is to be used for drawing
    * arrowheads or polymarkers on a given path, line, polyline or
@@ -413,7 +413,7 @@ trait SvgTags {
    *
    * MDN
    */
-  final val marker = "marker".tag[dom.SVGMarkerElement]
+  final val marker = "marker".tag[dom.raw.SVGMarkerElement]
   /**
    * In SVG, you can specify that any other graphics object or g element can
    * be used as an alpha mask for compositing the current object into the
@@ -422,7 +422,7 @@ trait SvgTags {
    *
    * MDN
    */
-  final val maskTag = "mask".tag[dom.SVGMaskElement]
+  final val maskTag = "mask".tag[dom.raw.SVGMaskElement]
   /**
    * Metadata is structured data about data. Metadata which is included with SVG
    * content should be specified within metadata elements. The contents of the
@@ -431,26 +431,26 @@ trait SvgTags {
    *
    * MDN
    */
-  final val metadata = "metadata".tag[dom.SVGMetadataElement]
+  final val metadata = "metadata".tag[dom.raw.SVGMetadataElement]
   /**
    * The missing-glyph's content is rendered, if for a given character the font
    * doesn't define an appropriate glyph.
    *
    * MDN
    */
-  final val `missing-glyph` = "missing-glyph".tag[dom.SVGElement]
+  final val `missing-glyph` = "missing-glyph".tag[dom.raw.SVGElement]
   /**
    * the mpath sub-element for the animatemotion element provides the ability
    * to reference an external path element as the definition of a motion path.
    *
    * MDN
    */
-  final val mpath = "mpath".tag[dom.SVGElement]
+  final val mpath = "mpath".tag[dom.raw.SVGElement]
   /**
    * The path element is the generic element to define a shape. All the basic
    * shapes can be created with a path element.
    */
-  final val path = "path".tag[dom.SVGPathElement]
+  final val path = "path".tag[dom.raw.SVGPathElement]
   /**
    * A pattern is used to fill or stroke an object using a pre-defined graphic
    * object which can be replicated ("tiled") at fixed intervals in x and y to
@@ -461,14 +461,14 @@ trait SvgTags {
    *
    * MDN
    */
-  final val pattern = "pattern".tag[dom.SVGPatternElement]
+  final val pattern = "pattern".tag[dom.raw.SVGPatternElement]
   /**
    * The polygon element defines a closed shape consisting of a set of connected
    * straight line segments.
    *
    * MDN
    */
-  final val polygon = "polygon".tag[dom.SVGPolygonElement]
+  final val polygon = "polygon".tag[dom.raw.SVGPolygonElement]
   /**
    * The polyline element is an SVG basic shape, used to create a series of
    * straight lines connecting several points. Typically a polyline is used to
@@ -476,14 +476,14 @@ trait SvgTags {
    *
    * MDN
    */
-  final val polyline = "polyline".tag[dom.SVGPolylineElement]
+  final val polyline = "polyline".tag[dom.raw.SVGPolylineElement]
   /**
    * radialGradient lets authors define radial gradients to fill or stroke
    * graphical elements.
    *
    * MDN
    */
-  final val radialgradient = "radialgradient".tag[dom.SVGRadialGradientElement]
+  final val radialgradient = "radialgradient".tag[dom.raw.SVGRadialGradientElement]
   /**
    * The rect element is an SVG basic shape, used to create rectangles based on
    * the position of a corner and their width and height. It may also be used to
@@ -491,7 +491,7 @@ trait SvgTags {
    *
    * MDN
    */
-  final val rect = "rect".tag[dom.SVGRectElement]
+  final val rect = "rect".tag[dom.raw.SVGRectElement]
   /**
    * The set element provides a simple means of just setting the value of an
    * attribute for a specified duration. It supports all attribute types,
@@ -501,7 +501,7 @@ trait SvgTags {
    *
    * MDN
    */
-  final val set = "set".tag[dom.SVGElement]
+  final val set = "set".tag[dom.raw.SVGElement]
   /**
    * The ramp of colors to use on a gradient is defined by the stop elements
    * that are child elements to either the lineargradient element or the
@@ -509,7 +509,7 @@ trait SvgTags {
    *
    * MDN
    */
-  final val stop = "stop".tag[dom.SVGStopElement]
+  final val stop = "stop".tag[dom.raw.SVGStopElement]
   /**
    * When it is not the root element, the svg element can be used to nest a
    * standalone SVG fragment inside the current document (which can be an HTML
@@ -518,7 +518,7 @@ trait SvgTags {
    *
    * MDN
    */
-  final val svg = "svg".tag[dom.SVGSVGElement]
+  final val svg = "svg".tag[dom.raw.SVGSVGElement]
   /**
    * The switch element evaluates the requiredFeatures, requiredExtensions and
    * systemLanguage attributes on its direct child elements in order, and then
@@ -529,7 +529,7 @@ trait SvgTags {
    *
    * MDN
    */
-  final val switch = "switch".tag[dom.SVGSwitchElement]
+  final val switch = "switch".tag[dom.raw.SVGSwitchElement]
   /**
    * The symbol element is used to define graphical template objects which can
    * be instantiated by a use element. The use of symbol elements for
@@ -542,7 +542,7 @@ trait SvgTags {
    *
    * MDN
    */
-  final val symbol = "symbol".tag[dom.SVGSymbolElement]
+  final val symbol = "symbol".tag[dom.raw.SVGSymbolElement]
   /**
    * The text element defines a graphics element consisting of text. Note that
    * it is possible to apply a gradient, pattern, clipping path, mask or filter
@@ -550,7 +550,7 @@ trait SvgTags {
    *
    * MDN
    */
-  final val text = "text".tag[dom.SVGTextElement]
+  final val text = "text".tag[dom.raw.SVGTextElement]
   /**
    * In addition to text drawn in a straight line, SVG also includes the
    * ability to place text along the shape of a path element. To specify that
@@ -560,7 +560,7 @@ trait SvgTags {
    *
    * MDN
    */
-  final val textpath = "textpath".tag[dom.SVGTextPathElement]
+  final val textpath = "textpath".tag[dom.raw.SVGTextPathElement]
   /**
    * The textual content for a text can be either character data directly
    * embedded within the text element or the character data content of a
@@ -568,7 +568,7 @@ trait SvgTags {
    *
    * MDN
    */
-  final val tref = "tref".tag[dom.SVGElement]
+  final val tref = "tref".tag[dom.raw.SVGElement]
   /**
    * Within a text element, text and font properties and the current text
    * position can be adjusted with absolute or relative coordinate values by
@@ -576,7 +576,7 @@ trait SvgTags {
    *
    * MDN
    */
-  final val tspan = "tspan".tag[dom.SVGTSpanElement]
+  final val tspan = "tspan".tag[dom.raw.SVGTSpanElement]
   /**
    * The use element takes nodes from within the SVG document, and duplicates
    * them somewhere else. The effect is the same as if the nodes were deeply
@@ -588,19 +588,19 @@ trait SvgTags {
    *
    * MDN
    */
-  final val use = "use".tag[dom.SVGUseElement]
+  final val use = "use".tag[dom.raw.SVGUseElement]
   /**
    * A view is a defined way to view the image, like a zoom level or a detail
    * view.
    *
    * MDN
    */
-  final val view = "view".tag[dom.SVGViewElement]
+  final val view = "view".tag[dom.raw.SVGViewElement]
   /**
    * The vertical distance between two glyphs in top-to-bottom fonts can be
    * fine-tweaked with an vkern Element. This process is known as Kerning.
    *
    * MDN
    */
-  final val vkern = "vkern".tag[dom.SVGElement]
+  final val vkern = "vkern".tag[dom.raw.SVGElement]
 }

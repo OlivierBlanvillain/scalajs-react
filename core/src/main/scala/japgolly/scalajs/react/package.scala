@@ -6,43 +6,43 @@ import js.{Dynamic, UndefOr, undefined, Object, Any => JAny, Function => JFn}
 
 package object react {
 
-  type TopNode = dom.HTMLElement
+  type TopNode = dom.raw.HTMLElement
 
-  type ReactEvent            = SyntheticEvent           [dom.Node]
-  type ReactClipboardEvent   = SyntheticClipboardEvent  [dom.Node]
-  type ReactCompositionEvent = SyntheticCompositionEvent[dom.Node]
-  type ReactDragEvent        = SyntheticDragEvent       [dom.Node]
-  type ReactFocusEvent       = SyntheticFocusEvent      [dom.Node]
-  //type ReactInputEvent     = SyntheticInputEvent      [dom.Node]
-  type ReactKeyboardEvent    = SyntheticKeyboardEvent   [dom.Node]
-  type ReactMouseEvent       = SyntheticMouseEvent      [dom.Node]
-  type ReactTouchEvent       = SyntheticTouchEvent      [dom.Node]
-  type ReactUIEvent          = SyntheticUIEvent         [dom.Node]
-  type ReactWheelEvent       = SyntheticWheelEvent      [dom.Node]
+  type ReactEvent            = SyntheticEvent           [dom.raw.Node]
+  type ReactClipboardEvent   = SyntheticClipboardEvent  [dom.raw.Node]
+  type ReactCompositionEvent = SyntheticCompositionEvent[dom.raw.Node]
+  type ReactDragEvent        = SyntheticDragEvent       [dom.raw.Node]
+  type ReactFocusEvent       = SyntheticFocusEvent      [dom.raw.Node]
+  //type ReactInputEvent     = SyntheticInputEvent      [dom.raw.Node]
+  type ReactKeyboardEvent    = SyntheticKeyboardEvent   [dom.raw.Node]
+  type ReactMouseEvent       = SyntheticMouseEvent      [dom.raw.Node]
+  type ReactTouchEvent       = SyntheticTouchEvent      [dom.raw.Node]
+  type ReactUIEvent          = SyntheticUIEvent         [dom.raw.Node]
+  type ReactWheelEvent       = SyntheticWheelEvent      [dom.raw.Node]
 
-  type ReactEventH            = SyntheticEvent           [dom.HTMLElement]
-  type ReactClipboardEventH   = SyntheticClipboardEvent  [dom.HTMLElement]
-  type ReactCompositionEventH = SyntheticCompositionEvent[dom.HTMLElement]
-  type ReactDragEventH        = SyntheticDragEvent       [dom.HTMLElement]
-  type ReactFocusEventH       = SyntheticFocusEvent      [dom.HTMLElement]
-  //type ReactInputEventH     = SyntheticInputEvent      [dom.HTMLElement]
-  type ReactKeyboardEventH    = SyntheticKeyboardEvent   [dom.HTMLElement]
-  type ReactMouseEventH       = SyntheticMouseEvent      [dom.HTMLElement]
-  type ReactTouchEventH       = SyntheticTouchEvent      [dom.HTMLElement]
-  type ReactUIEventH          = SyntheticUIEvent         [dom.HTMLElement]
-  type ReactWheelEventH       = SyntheticWheelEvent      [dom.HTMLElement]
+  type ReactEventH            = SyntheticEvent           [dom.raw.HTMLElement]
+  type ReactClipboardEventH   = SyntheticClipboardEvent  [dom.raw.HTMLElement]
+  type ReactCompositionEventH = SyntheticCompositionEvent[dom.raw.HTMLElement]
+  type ReactDragEventH        = SyntheticDragEvent       [dom.raw.HTMLElement]
+  type ReactFocusEventH       = SyntheticFocusEvent      [dom.raw.HTMLElement]
+  //type ReactInputEventH     = SyntheticInputEvent      [dom.raw.HTMLElement]
+  type ReactKeyboardEventH    = SyntheticKeyboardEvent   [dom.raw.HTMLElement]
+  type ReactMouseEventH       = SyntheticMouseEvent      [dom.raw.HTMLElement]
+  type ReactTouchEventH       = SyntheticTouchEvent      [dom.raw.HTMLElement]
+  type ReactUIEventH          = SyntheticUIEvent         [dom.raw.HTMLElement]
+  type ReactWheelEventH       = SyntheticWheelEvent      [dom.raw.HTMLElement]
 
-  type ReactEventI            = SyntheticEvent           [dom.HTMLInputElement]
-  type ReactClipboardEventI   = SyntheticClipboardEvent  [dom.HTMLInputElement]
-  type ReactCompositionEventI = SyntheticCompositionEvent[dom.HTMLInputElement]
-  type ReactDragEventI        = SyntheticDragEvent       [dom.HTMLInputElement]
-  type ReactFocusEventI       = SyntheticFocusEvent      [dom.HTMLInputElement]
-  //type ReactInputEventI     = SyntheticInputEvent      [dom.HTMLInputElement]
-  type ReactKeyboardEventI    = SyntheticKeyboardEvent   [dom.HTMLInputElement]
-  type ReactMouseEventI       = SyntheticMouseEvent      [dom.HTMLInputElement]
-  type ReactTouchEventI       = SyntheticTouchEvent      [dom.HTMLInputElement]
-  type ReactUIEventI          = SyntheticUIEvent         [dom.HTMLInputElement]
-  type ReactWheelEventI       = SyntheticWheelEvent      [dom.HTMLInputElement]
+  type ReactEventI            = SyntheticEvent           [dom.raw.HTMLInputElement]
+  type ReactClipboardEventI   = SyntheticClipboardEvent  [dom.raw.HTMLInputElement]
+  type ReactCompositionEventI = SyntheticCompositionEvent[dom.raw.HTMLInputElement]
+  type ReactDragEventI        = SyntheticDragEvent       [dom.raw.HTMLInputElement]
+  type ReactFocusEventI       = SyntheticFocusEvent      [dom.raw.HTMLInputElement]
+  //type ReactInputEventI     = SyntheticInputEvent      [dom.raw.HTMLInputElement]
+  type ReactKeyboardEventI    = SyntheticKeyboardEvent   [dom.raw.HTMLInputElement]
+  type ReactMouseEventI       = SyntheticMouseEvent      [dom.raw.HTMLInputElement]
+  type ReactTouchEventI       = SyntheticTouchEvent      [dom.raw.HTMLInputElement]
+  type ReactUIEventI          = SyntheticUIEvent         [dom.raw.HTMLInputElement]
+  type ReactWheelEventI       = SyntheticWheelEvent      [dom.raw.HTMLInputElement]
 
   @deprecated("React 0.12 has introduced ReactElement which is what VDom was created to represent. Replace VDom with ReactElement.", "0.6.0")
   type VDom = ReactElement
@@ -214,9 +214,9 @@ package object react {
 
   @inline implicit final class ReactExt_ReactObj(val _r: React.type) extends AnyVal {
     @deprecated("React.renderComponentC will be deprecated in a future version. Use React.renderC instead.", "0.6.0")
-    @inline def renderComponentC[P, S, B, N <: TopNode](c: ReactComponentU[P,S,B,N], n: dom.Node)(callback: ComponentScopeMN[P,S,B,N] => Unit) =
+    @inline def renderComponentC[P, S, B, N <: TopNode](c: ReactComponentU[P,S,B,N], n: dom.raw.Node)(callback: ComponentScopeMN[P,S,B,N] => Unit) =
       _r.render(c, n, callback)
-    @inline def renderC[P, S, B, N <: TopNode](c: ReactComponentU[P,S,B,N], n: dom.Node)(callback: ComponentScopeMN[P,S,B,N] => Unit) =
+    @inline def renderC[P, S, B, N <: TopNode](c: ReactComponentU[P,S,B,N], n: dom.raw.Node)(callback: ComponentScopeMN[P,S,B,N] => Unit) =
       _r.render(c, n, callback)
   }
 
@@ -233,11 +233,11 @@ package object react {
     @inline def state = _c._state.v
   }
 
-  val preventDefaultF  = (_: SyntheticEvent[dom.Node]).preventDefault()
-  val stopPropagationF = (_: SyntheticEvent[dom.Node]).stopPropagation()
+  val preventDefaultF  = (_: SyntheticEvent[dom.raw.Node]).preventDefault()
+  val stopPropagationF = (_: SyntheticEvent[dom.raw.Node]).stopPropagation()
 
   @inline implicit final class ReactExt_ReactComponentU[P,S,B,N <: TopNode](val _c: ReactComponentU[P,S,B,N]) extends AnyVal {
-    def render(n: dom.Node) = React.render(_c, n)
+    def render(n: dom.raw.Node) = React.render(_c, n)
   }
 
   @inline implicit final class ReactExt_ReactDOMElement(val _v: ReactDOMElement) extends AnyVal {
