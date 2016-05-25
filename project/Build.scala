@@ -139,7 +139,7 @@ object ScalajsReact extends Build {
 
   // ==============================================================================================
   lazy val root = Project("root", file("."))
-    .aggregate(core, test, scalaz72, monocle, extra, ghpagesMacros, ghpages)
+    .aggregate(core, test, scalaz72, monocle, extra, doc, ghpagesMacros, ghpages)
     .configure(commonSettings, preventPublication, hasNoTests, addCommandAliases(
       "/"   -> "project root",
       "L"   -> "root/publishLocal",
@@ -202,6 +202,14 @@ object ScalajsReact extends Build {
 
   def monocleLib(name: String) =
     "com.github.julien-truffaut" %%%! s"monocle-$name" % Ver.Monocle
+
+  // ==============================================================================================
+  lazy val doc = project
+    .configure(commonSettings, preventPublication, hasNoTests)
+    .settings(tut.Plugin.tutSettings: _*)
+    .settings(tut.Plugin.tutSourceDirectory := file(".") / "doc")
+    .settings(tut.Plugin.tutTargetDirectory := file(".") / ".tut")
+    .dependsOn(core, extra)
 
   // ==============================================================================================
   lazy val ghpagesMacros = Project("gh-pages-macros", file("gh-pages-macros"))

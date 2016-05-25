@@ -60,7 +60,7 @@ There are two built-in ways of creating virtual-DOM.
 
 1. **Prefixed (recommended)** - Importing DOM tags and attributes under prefixes is recommended. Apart from essential implicit conversions, only two names are imported: `<` for tags, `^` for attributes.
 
-  ```scala
+  ```tut
   import japgolly.scalajs.react.vdom.prefix_<^._
 
   <.ol(
